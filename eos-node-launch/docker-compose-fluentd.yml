@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  nodeosd:
+    image: ap/eosmainnet:latest
+    hostname: nodeosd
+    ports:
+      - 8888:8888
+      - 9876:9876
+    expose:
+      - "8888"
+    volumes:
+      - /opt/eos-mainnet/config:/opt/eosio/config
+      - /opt/eos-mainnet/data:/opt/eosio/data
+    stop_grace_period: 5m
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 131070
+    healthcheck:
+      test: ["CMD", "cleos", "get", "info"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+    logging:
+      driver: fluentd
+      options:
+         fluentd-address: 0.0.0.0:24224
+    command: /opt/eosio/bin/nodeos --data-dir=/opt/eosio/data --config-dir=/opt/eosio/config
+    restart: always
