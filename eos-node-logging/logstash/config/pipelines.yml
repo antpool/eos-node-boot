@@ -1,0 +1,14 @@
+- pipeline.id: beats-input
+  path.config: config/beats.conf
+
+- pipeline.id: on_incoming_block-processing
+  path.config: config/incoming_block.conf
+
+- pipeline.id: produce_block-processing
+  path.config: config/produce_block.conf
+
+- pipeline.id: other-processing
+  path.config: config/other.conf
+
+- pipeline.id: es-output
+  path.config: config/es.conf
