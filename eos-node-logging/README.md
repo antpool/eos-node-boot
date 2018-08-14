@@ -11,9 +11,7 @@
 - [launch Influxdb container](influxdb-container)
 - run eos log handler
 ```
-docker ps |grep nodeos |awk '{print $1}'
-
-python eos_log_handler.py --id
+python eos_log_handler.py -id $(docker ps |grep nodeos |awk '{print $1}')
 ```
 
 
